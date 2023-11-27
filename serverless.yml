@@ -17,28 +17,57 @@ package:
   individually: true  
 
 functions:
+  postNotes:
+    handler: functions/postNotes/index.handler
+    events:
+      - httpApi:
+          path: '/notes'
+          method: POST
   getNotes:
     handler: functions/getNotes/index.handler
     events:
       - httpApi:
           path: "/notes"
-          method: GET
-  postNotes:
-    handler: functions/postNotes/index.handler
-    events:
-      - httpApi:
-          path: "/notes"
-          method: POST
+          method: GET                
   updateNotes:
     handler: functions/updateNotes/index.handler
     events:
       - httpApi:
-          path: '/notes/{id}'
+          path: '/notes/'
           method: PATCH
   deleteNotes:
     handler: functions/deleteNotes/index.handler
     events:
       - httpApi:
-          path: 'notes/{id}'
+          path: '/notes/'
           method: DELETE
+
+
+resources:  
+  Resources:
+    notesDb:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: notes-db
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    usersDb:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: accounts
+        AttributeDefinitions:
+          - AttributeName: username
+            AttributeType: S
+        KeySchema:
+          - AttributeName: username
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST    
+
+
            
