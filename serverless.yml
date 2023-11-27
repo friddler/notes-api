@@ -41,6 +41,18 @@ functions:
       - httpApi:
           path: '/notes'
           method: DELETE
+  signUp:
+     handler: functions/signUp/index.handler
+     events: 
+      - httpApi:
+          path: '/user/signup'
+          method: POST
+  logIn:
+    handler: functions/logIn/index.handler
+    events:
+      - httpApi:
+          path: '/user/login'
+          method: POST        
 
 
 resources:  
