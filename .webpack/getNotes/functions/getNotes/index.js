@@ -15,7 +15,7 @@
   \*************************************/
 /***/ (() => {
 
-eval("\r\n\n\n//# sourceURL=webpack://notes-api/./functions/getNotes/index.js?");
+eval("\n\n//# sourceURL=webpack://notes-api/./functions/getNotes/index.js?");
 
 /***/ })
 
