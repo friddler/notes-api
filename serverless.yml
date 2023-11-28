@@ -34,7 +34,7 @@ functions:
     events:
       - httpApi:
           path: '/notes'
-          method: PATCH
+          method: PUT
   deleteNotes:
     handler: functions/deleteNotes/index.handler
     events:
