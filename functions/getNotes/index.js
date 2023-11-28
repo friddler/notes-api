@@ -31,7 +31,7 @@ const getNotes = async (event, context) => {
       console.log(error);
       return sendResponse(400, {
         success: false,
-        message: 'Could not get notes',
+        message: 'Error, couldnt fetch notes',
       });
     }
   };

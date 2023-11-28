@@ -31,10 +31,10 @@ const postNotes = async (event, context) => {
     });
   }
 
-  const createdAt = new Date().toISOString;
+  const date = new Date().toISOString();
   note.id = nanoid();
-  note.createdAt = `${createdAt}`;
-  note.modifiedAt = createdAt;
+  note.createdAt = `${date}`
+  note.modifiedAt = date
   note.username = event.username;
 
   try {
