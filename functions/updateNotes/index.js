@@ -12,6 +12,7 @@ const updateNotes = async (event, context) => {
     return sendResponse(401, { success: false, message: "Invalid token" });
   }
 
+  const userName = event.username;
   const requestBody = JSON.parse(event.body);
   const { id, title, text } = requestBody;
 
@@ -24,10 +25,30 @@ const updateNotes = async (event, context) => {
 
   if (title.length > maxTitleLength || text.length > maxTextLength) {
     return sendResponse(400, {
-        success: false,
-        message: `Title cannot be more than ${maxTitleLength} characters and text cannot be more than ${maxTextLength} characters`
+      success: false,
+      message: `Title cannot be more than ${maxTitleLength} characters and text cannot be more than ${maxTextLength} characters`,
     });
-}
+  }
+
+  let currentNote;
+  try {
+    const result = await db
+      .get({
+        TableName: "notes-db",
+        Key: { id: id },
+      })
+      .promise();
+    currentNote = result.Item;
+  } catch (error) {
+    return sendResponse(500, { success: false, message: "failed to get note" });
+  }
+
+  if (!currentNote || currentNote.username !== userName) {
+    return sendResponse(403, {
+      success: false,
+      message: "You can't update this note",
+    });
+  }
 
   const modifiedAt = new Date().toISOString();
 
