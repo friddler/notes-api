@@ -11,7 +11,7 @@ const deleteNote = async (event, context) => {
 
   const requestBody = JSON.parse(event.body);
   const noteId = requestBody.id;
-  const userName = event.username;
+  const username = event.username;
 
   if (!noteId) {
     return sendResponse(400, {
@@ -28,10 +28,10 @@ const deleteNote = async (event, context) => {
       })
       .promise();
 
-    if (!noteData.Item || noteData.Item.username !== userName) {
+    if (!noteData.Item || noteData.Item.username !== username) {
       return sendResponse(403, {
         success: false,
-        message: "Access failed or note not found",
+        message: "Access denied or note not found",
       });
     }
 
